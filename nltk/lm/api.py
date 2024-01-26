@@ -236,7 +236,7 @@ class LanguageModel(metaclass=ABCMeta):
         entropy_extended = -1 * sum([prob * log_base2(prob) for prob in probabilities])
         
         if length_normalisation:
-            entropy /= len(probabilities)
+            entropy_extended /= len(probabilities)
             
         return entropy_extended
 

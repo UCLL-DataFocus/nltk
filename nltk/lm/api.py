@@ -226,14 +226,14 @@ class LanguageModel(metaclass=ABCMeta):
             
             weighted_probabilities = []
             for prob, ngram in zip(probabilities, text_ngrams):
-                if contains_UNK(ngram):
+                if self.contains_UNKs(ngram):
                     prob *= min_freq_rel_fdist
                 else:
                     prob *= rel_fdist[ngram]
                 weighted_probabilities.append(prob)
             probabilities = weighted_probabilities
         
-        entropy = -1 * sum([prob * log_base2(prob) for prob in probabilities])
+        entropy_extended = -1 * sum([prob * log_base2(prob) for prob in probabilities])
         
         if length_normalisation:
             entropy /= len(probabilities)
